@@ -1,3 +1,5 @@
+<p align="center"><a href="https://sumcoin.org"><img src="https://sumcoin.org/wp-content/uploads/2019/07/sumcoin_400x400.png" width="96" height="96" alt="Official Sumcoin logo"></a></p>
+
 # Sumcoinlib Flutter — 0.0.3
 
 Cross-platform Flutter wrapper for `sumcoinlib` with native `secp256k1`
