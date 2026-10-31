@@ -2,8 +2,10 @@ import 'package:sumcoinlib/sumcoinlib.dart';
 import 'package:test/test.dart';
 import '../vectors/keys.dart';
 
+// This is a deterministic test-only private key serialized with Sumcoin WIF
+// prefix 187. The key itself is unchanged from the upstream signature fixture.
 final privKey = WIF.fromString(
-  "UBGjv7kuxKmN1JHLJxQypz9jE7mYkKTZ9U6C1p1N2nEWbPZLiEkT",
+  "UmbGCmCWewRuuNLQXFzZ1gXgDraA5zYToEaiFdPjzhFMiiPXe5ih",
   version: Network.mainnet.wifPrefix,
 ).privkey;
 final addrs = [
@@ -14,14 +16,16 @@ final addrs = [
     privKey.pubkey, hrp: Network.mainnet.bech32Hrp,
   ),
 ];
+// Known-answer vectors signed with deterministic RFC6979 ECDSA using the
+// Sumcoin Signed Message prefix from Sumcoin Core. Not sample wallet funds.
 final msgSigs = [
   [
     "Hello, this is a message",
-    "H4UaAiTB5aNpPiwHpH1Qp7th5NxBQeLoNdk0qzqqVHmQN1f+2yMyH4eX/9Iq2gkXSN1GTnflJpZQcxqOkUtuYJc=",
+    "H6tkGPZgWmDleOYwTz45qCgVRj4EcmAokDbr/ELkiJjBBXLowBlPKovdUvi4TNojJohP5OLWOosU2lmqzrU9baE=",
   ],
   [
     "The recid for this message is 1",
-    "IIXsSzUwny1RGeKNBzp9UBqlNxXisKJd5WpkrsPBVrblPETGvL8ESy4L5WpYZibQdSH04cL088zT0JMc4KAgvVY=",
+    "IAeDJMJic4btzCWDS0PA8fOMBV6S8psfiPX07cP0MQd8WuG4+3L/rtB81GNkIkd5dZkLsVhQargA6MxUc2FKMbQ=",
   ],
 ];
 
@@ -80,7 +84,7 @@ void main() {
       expect(
         msgSig.verifyAddress(
           address: Address.fromString(
-            "P8bB9yPr3vVByqfmM5KXftyGckAtAdu6f8",
+            "SMJ12qn9jNCCXJnTYRz5Yu9ZenERqvYwfg",
             Network.mainnet,
           ),
           message: msgSigs[0][0],

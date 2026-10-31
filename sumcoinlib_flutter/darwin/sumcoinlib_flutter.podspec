@@ -5,12 +5,12 @@
 Pod::Spec.new do |s|
   s.name             = 'sumcoinlib_flutter'
   s.module_name      = 'secp256k1'
-  s.version          = '0.3.2'
+  s.version          = '0.0.3'
   s.summary          = 'Cryptographic primitives from the secp256k1 library'
   s.description      = <<-DESC
 The secp256k1 library bundled into the flutter plugin via cocoapods.
                        DESC
-  s.homepage         = 'http://sumcoin.org'
+  s.homepage         = 'https://sumcoin.org'
   s.license          = { :file => '../LICENSE' }
   s.author           = 'Sumcoin Developers'
 

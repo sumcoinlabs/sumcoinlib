@@ -1,0 +1,5 @@
+# Use the local sibling checkout while developing 0.0.3.
+# Published sumcoinlib_flutter still declares a normal hosted constraint.
+dependency_overrides:
+  sumcoinlib:
+    path: ../sumcoinlib

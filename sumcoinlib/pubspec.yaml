@@ -2,7 +2,7 @@ name: sumcoinlib
 description:
   A straight-forward, modular library for Sumcoin Wallet and other UTXO cases.
   
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/sumcoinlabs/sumcoinlib
 
 environment:

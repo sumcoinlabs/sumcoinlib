@@ -25,7 +25,7 @@ final vectors = [
     outHex:
     "00000000000000001976a914751e76e8199196d454941c45d1b3a323f1433bd688ac",
     progType: P2PKH,
-    address: "PKGSi8HTQzLx89rkZrRrVkPFjrcSC55NP9",
+    address: "SXyGazfm6S3xfcySmD6QNkZYmtfysC2jvc",
   ),
   OutputVector(
     value: Output.maxValue,
@@ -33,7 +33,7 @@ final vectors = [
     outHex:
     "ffffffffffffffff220020ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     progType: P2WSH,
-    address: "pc1qlllllllllllllllllllllllllllllllllllllllllllllllllllsm5knxw",
+    address: "sum1qlllllllllllllllllllllllllllllllllllllllllllllllllllspn5tg4",
   ),
   OutputVector(
     value: BigInt.from(1),

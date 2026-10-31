@@ -1,5 +1,11 @@
-# SumCoinlib for flutter example
+# Sumcoinlib Flutter example
 
-This is a simple example of how to use the `sumcoinlib_flutter` plugin. The
-`lib/main.dart` file uses the `SumCoinlibLoader` widget and demonstrates conversion
-of a private key into a public key using the library.
+Demo app for the Sumcoinlib 0.0.3 Flutter plugin. The plugin and Dart package
+are referenced locally, so this example does not depend on unreleased pub.dev
+artifacts.
+
+```sh
+flutter pub get
+flutter analyze
+flutter run
+```

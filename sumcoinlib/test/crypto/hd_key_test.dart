@@ -22,6 +22,16 @@ void main() {
 
     setUpAll(loadSumCoinlib);
 
+    test('optional BIP32 HMAC key is honored without changing default', () {
+      final seed = hexToBytes('000102030405060708090a0b0c0d0e0f');
+      final defaultKey = HDPrivateKey.fromSeed(seed);
+      final standardKey = HDPrivateKey.fromSeed(seed, key: 'Bitcoin seed');
+      final customizedKey = HDPrivateKey.fromSeed(seed, key: 'custom test key');
+      expect(defaultKey.privateKey.data, standardKey.privateKey.data);
+      expect(defaultKey.chaincode, standardKey.chaincode);
+      expect(customizedKey.chaincode, isNot(defaultKey.chaincode));
+    });
+
     test("base58 decode/encode", () {
       forEachHDVector((parent, vec) {
 

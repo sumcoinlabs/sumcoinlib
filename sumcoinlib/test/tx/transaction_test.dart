@@ -312,6 +312,8 @@ void main() {
       expect(() => tx.outputs[0] = exampleOutput, throwsA(anything));
     });
 
+    // These deterministic signing fixtures come from the original BSD-licensed
+    // library. They test cryptography, not confirmed Sumcoin testnet broadcasts.
     test("sign P2PKH", () {
 
       expectP2PKH({
@@ -345,8 +347,6 @@ void main() {
       }
 
       // SIGHASH_ALL
-      // Sent on testnet: c52154f5b3cec84dc651d9102950914d259477a9d013efcece769ad07643df5d
-      // Sent 10tppc via 6003525edfd29b63767e465bdf3d61aa60105e4368366c46a62d0f1fb0c6b34b
       expectP2PKH(
         prevTxIds: ["6003525edfd29b63767e465bdf3d61aa60105e4368366c46a62d0f1fb0c6b34b"],
         hashType: SigHashType.all(),
@@ -354,8 +354,6 @@ void main() {
       );
 
       // SIGHASH_NONE
-      // Sent on testnet: a67a6e12d93a51fb3f3fffd0a5827e312227f5824ccd1bb2ef3b941d2dfa47ca
-      // Sent 2tppc via 5ce897c22438be2ab7fac85c7fdea596c81b0b515a1163969d0c9805e97ff561
       expectP2PKH(
         prevTxIds: ["5ce897c22438be2ab7fac85c7fdea596c81b0b515a1163969d0c9805e97ff561"],
         hashType: SigHashType.none(),
@@ -363,8 +361,6 @@ void main() {
       );
 
       // SIGHASH_SINGLE | ANYONECANPAY
-      // Sent on testnet: c75d5e7c2323160240de255d188d8c4b125425a7da744b5ba371ddc43dda96a6
-      // Sent 6tppc via f47fe6ce6a79734f252ceac7a0468a077b3d27e5289c5c0fb5294e0c7c07a51a
       expectP2PKH(
         prevTxIds: ["f47fe6ce6a79734f252ceac7a0468a077b3d27e5289c5c0fb5294e0c7c07a51a"],
         hashType: SigHashType.single(anyOneCanPay: true),
@@ -372,9 +368,6 @@ void main() {
       );
 
       // SIGHASH_ALL with 2x inputs
-      // Sent on testnet: 7ed419ea7f5618e71215681fc451657050fa40a605549aac68f84a527cf5ed9f
-      // Sent 0.5tppc via 8424eeaf7e0859f2b19a70e5181ae8dcee99cc0eaf4247f831b27ea655f37bb8
-      // Sent 0.9tppc via 22eb14eef7eb88d7b653943aac5f38016fa4ee0aaf51462f8737f788e11b3d78
       expectP2PKH(
         prevTxIds: [
           "8424eeaf7e0859f2b19a70e5181ae8dcee99cc0eaf4247f831b27ea655f37bb8",
@@ -385,9 +378,6 @@ void main() {
       );
 
       // SIGHASH_ALL | ANYONECANPAY with 2x inputs
-      // Sent on testnet: a56f9b2c69fe61638e3b5d05205007728faada21a551ac499a5f097eecfab786
-      // Sent 3tppc via c8d7587c66e8d803a2a802658d51e2accb6ede1e472ecd1e55b6202a47447e7f
-      // Sent 7tppc via ead28731d0bf3d5d2ac014edb5b4edfa862d9ea6a67ae1147e32b5c4c6cfebab 
       expectP2PKH(
         prevTxIds: [
           "c8d7587c66e8d803a2a802658d51e2accb6ede1e472ecd1e55b6202a47447e7f",
@@ -401,9 +391,8 @@ void main() {
 
     test("sign P2WPKH input", () {
       // Includes a P2PKH input for good measure
-      // Sent on testnet:
       //    9e8d50325d0dac936483943beab51d6936768e0fd723da677e2b1b4c489e690c
-      // Includes 5ppc and 3ppc inputs
+      // Legacy upstream signing fixture (kept for byte-for-byte regression testing)
       //    via 6ef0ccd045d0f29b4b52ac4804ac0378ef10b0dc68cfb3283e744a056238799f
 
       final prevHashHex
@@ -441,11 +430,10 @@ void main() {
     });
 
     test("sign key-path P2TR input", () {
-      // Sent on testnet:
       //   5bfa50b41c372e8ec5710766e9d5292845ba2c22d7d144dfff622d1c3eaa6dbf
-      // Includes 6ppc input via:
+      // Legacy upstream signing fixture (kept for byte-for-byte regression testing)
       //   ec68cf7fa9599c96b87c176c9d2fa0ee2fcc8a0f3469b7da5b637963e67470c1
-      // And includes 2ppc input via:
+      // Legacy upstream signing fixture (kept for byte-for-byte regression testing)
       //   cada1d0756465151d8fe7195f5702d48ff5e8f56b5d19ecd7815c8e82687211e
 
       final taproot = Taproot(internalKey: keyVec.publicObj);
@@ -505,9 +493,8 @@ void main() {
     });
 
     test("sign script-path P2TR input with NUMS key", () {
-      // Sent on testnet:
       //  7353bd0fd3c2f572b45f144b1c8ad17b555b52eee6493b27d41b168783bec0f2
-      // Includes 12ppc input via:
+      // Legacy upstream signing fixture (kept for byte-for-byte regression testing)
       //  980d55a017d166d4b26e45c81e958f2c751bc0abb8e3116bd3354158be44c53c
 
       TapLeaf checkSigLeafForVector(KeyTestVector vec) => TapLeaf(
@@ -581,7 +568,6 @@ void main() {
 
     test("sign P2SH multisig and add inputs/outputs", () {
       // Sign 3-of-4 with keys 3, 1, 2 on the second input
-      // Sent on testnet: 665d6d195bd128e99cf4ca2c78d5fcd5b67c54a3c111dfb8a3f8c8a82b0f1f1b
       // Used mrCDrCybB6J1vRfbwM5hemdJz73FwDBC8r for P2PKH on input 0
       // Used 2MzzakuAACiDBCpi2Au2Ckiux33mjSuKMK3 for P2SH on input 1
       //   both via 90024b0b92707fa505b4183951ac755d45ecab5e6855ea78370063b365e0687b

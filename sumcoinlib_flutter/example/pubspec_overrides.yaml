@@ -1,0 +1,4 @@
+# Run the Flutter example against both packages in this checkout.
+dependency_overrides:
+  sumcoinlib:
+    path: ../../sumcoinlib

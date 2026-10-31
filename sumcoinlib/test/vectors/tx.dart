@@ -38,7 +38,7 @@ final examplePubkey = ECPublicKey.fromHex(
 final exampleOutput = Output.fromAddress(
   BigInt.from(100000),
   Address.fromString(
-    "PSUVJAon4oTrVZgHEKg3UfppFEDP7gBSkt",
+    "SfBKB3C5kFAs32nyRgLbMg17HGGvobD7q6",
     Network.mainnet,
   ),
 );
@@ -127,14 +127,14 @@ final validTxVecs = [
         Output.fromAddress(
           BigInt.from(52680000),
           Address.fromString(
-            "PAe4rizffK1jrg84AEoaYv75uyLoWgtbB1",
+            "SPLtjbNyLkikQ9EkMbU8RvHNx1QMDfKGxW",
             Network.mainnet,
           ),
         ),
         Output.fromAddress(
           BigInt.from(3032597),
           Address.fromString(
-            "PCLHR5x8X2bitLes8DiSMTswpc46zt6THo",
+            "SR37HxLSCUJjRomZKaNzEU4Ere7eg87hPq",
             Network.mainnet,
           ),
         ),
@@ -349,7 +349,7 @@ final validTxVecs = [
         Output.fromAddress(
           BigInt.from(2501463873),
           Address.fromString(
-            "PQfazmXYxj7BKQG9jGbjKaQzYyi8AGEkH1",
+            "SdNQsdureApBrsNqvdGHCabHb1mfp832tB",
             Network.mainnet,
           ),
         ),
@@ -533,7 +533,8 @@ class SigHashVector {
   });
 }
 
-final sigHashTxHex = "010000000200000000000000000000000000000000000000000000000000000000000000000000000000ffffffff00000000000000000000000000000000000000000000000000000000000000000000000000ffffffff01e8030000000000000000000000";
+// Sumcoin v1 must include its four-byte nTime (zero in this synthetic fixture).
+final sigHashTxHex = "01000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000ffffffff00000000000000000000000000000000000000000000000000000000000000000000000000ffffffff01e8030000000000000000000000";
 final witnessValue = BigInt.from(0x0102030405);
 
 final sighashVectors = [
@@ -543,7 +544,7 @@ final sighashVectors = [
     inputN: 0,
     scriptCodeAsm: "0 03",
     type: SigHashType.all(),
-    hash: "c2360721e97635761cd6d94d9528de894448709ed7d40f59fc68f573320a7d9f",
+    hash: "da051ac6e23a9dd6cda49a5d553f58a9fa0f8211c45976f03c312bc4a4c42e95",
     witnessHash: "3314821edf3f58f15b3763fbbd65353e6414c3494a4dd25e85345dbb4c0a9ac0",
   ),
 
@@ -552,7 +553,7 @@ final sighashVectors = [
     inputN: 0,
     scriptCodeAsm: "0 OP_CODESEPARATOR 03",
     type: SigHashType.all(),
-    hash: "c2360721e97635761cd6d94d9528de894448709ed7d40f59fc68f573320a7d9f",
+    hash: "da051ac6e23a9dd6cda49a5d553f58a9fa0f8211c45976f03c312bc4a4c42e95",
     witnessHash: "afb2d290a938c235743deadd0a77a616811c243dfd17b01dd8b1babc2d85e2ed",
   ),
 
@@ -561,7 +562,7 @@ final sighashVectors = [
     inputN: 0,
     scriptCodeAsm: "0",
     type: SigHashType.single(),
-    hash: "43597296fa4f2bd356a21aec9dc66b4206f7d696a2d5468b840838be84d12987",
+    hash: "f89e57bfd286d5335de4fc95c6bbaa7b1d75498d812a4939831df865318321d2",
     witnessHash: "83ea6b964428e0f83ed692b87ce9138ef208d80bf013c47978cc15be1645773c",
   ),
 
@@ -579,7 +580,7 @@ final sighashVectors = [
     inputN: 0,
     scriptCodeAsm: "0",
     type: SigHashType.none(),
-    hash: "539456df7e47a886a3e03323fab19881fcc195198bebac3f60d3108e86c0dbc0",
+    hash: "ab94a202937c3c3a0929678a4394a77f5bb386dc9fe16b82fc9add049c018e07",
     witnessHash: "9741f66ec361eb3f8067fce5e43f22c0cbb4a7fbcb69d1e248dbd40b01fcf0b7",
   ),
 
@@ -588,14 +589,14 @@ final sighashVectors = [
     inputN: 0,
     scriptCodeAsm: "0",
     type: SigHashType.all(anyOneCanPay: true),
-    hash: "6f432eb5ce9f1a48693bab90f84adc0080e87a4d03abe761d261ca8adffb3002",
+    hash: "c3ffa86710fc1668b9ce0b0aa22316a028f7359d5d1dd39b409cbb122226a601",
     witnessHash: "9d39499db354af5517b52ea135091b237d47e5006ad322623e6d5634fabe17a9",
   ),
   SigHashVector(
     inputN: 1,
     scriptCodeAsm: "0",
     type: SigHashType.all(anyOneCanPay: true),
-    hash: "6f432eb5ce9f1a48693bab90f84adc0080e87a4d03abe761d261ca8adffb3002",
+    hash: "c3ffa86710fc1668b9ce0b0aa22316a028f7359d5d1dd39b409cbb122226a601",
     witnessHash: "9d39499db354af5517b52ea135091b237d47e5006ad322623e6d5634fabe17a9",
   ),
 

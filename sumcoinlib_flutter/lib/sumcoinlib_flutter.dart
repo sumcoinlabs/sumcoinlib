@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:sumcoinlib/sumcoinlib.dart';
 export 'package:sumcoinlib/sumcoinlib.dart';
 
-/// A widget that ensures the coinlib library is loaded before use. This is
+/// A widget that ensures the Sumcoin library is loaded before use. This is
 /// currently only necessary on web but it is good practice to use in any case.
 class SumCoinlibLoader extends StatefulWidget {
 

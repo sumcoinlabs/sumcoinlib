@@ -77,6 +77,7 @@ final class LegacySignatureHasher implements SignatureHasher {
 
     final modifiedTx = Transaction(
       version: tx.version,
+      time: tx.time,
       inputs: modifiedInputs,
       outputs: modifiedOutputs,
       locktime: tx.locktime,

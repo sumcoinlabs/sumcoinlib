@@ -14,17 +14,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     home: Scaffold(
-      appBar: AppBar(title: const Text("SumCoinlib Example")),
+      appBar: AppBar(title: const Text("Sumcoinlib Example")),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: _getCoinLibWidget(context)
+          child: _getSumcoinlibWidget(context)
         )
       )
     )
   );
 
-  Widget _getCoinLibWidget(BuildContext context) => sumcoinlib.SumCoinlibLoader(
+  Widget _getSumcoinlibWidget(BuildContext context) => sumcoinlib.SumCoinlibLoader(
     loadChild: const Text("Loading sumcoinlib..."),
     errorBuilder: (context, error) => Text("Error $error"),
     builder: (context) {

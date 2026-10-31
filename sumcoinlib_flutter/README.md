@@ -1,34 +1,40 @@
-<p align="center">
-  <img
-    src="https://raw.githubusercontent.com/sumcoinlabs/sumcoinlib/master/logo.svg"
-    alt="SumCoinlib"
-    width="250px"
-  >
-</p>
+# Sumcoinlib Flutter — 0.0.3
 
-<p align="center">
-<!--  <a href="https://chainz.cryptoid.info/ppc/address.dws?p77CZFn9jvg9waCzKBzkQfSvBBzPH1nRre"> -->
-  <a href="https://sumexplorer.com">
-  <img src="https://badgen.net/badge/sumcoin/Donate/blue?icon=https://sumcoin.org/wp-content/uploads/2019/07/sumcoin_400x400.png" alt="Sumcoin Donate">
+Cross-platform Flutter wrapper for `sumcoinlib` with native `secp256k1`
+compilation and a web-capable initialization widget.
 
-  <a href="https://pub.dev/packages/sumcoinlib_flutter">
-    <img alt="pub.dev" src="https://img.shields.io/pub/v/sumcoinlib_flutter?logo=dart&label=pub.dev">
-  </a>
-</p>
+## Install
 
-# Sumcoinlib for Flutter
+After both versions are available on pub.dev:
 
-This package provides flutter support for the
-[sumcoinlib](https://pub.dev/packages/sumcoinlib) library for Sumcoin and
-other cryptocoins. A `SumCoinlibLoader` widget is included that must be used when
-targeting web to ensure the library is ready to be used.
+```sh
+flutter pub add sumcoinlib_flutter
+```
 
-An example app is provided in `example/` that demonstrates use of the loader
-widget. Beyond this, the [sumcoinlib](https://pub.dev/packages/sumcoinlib) library
-documentation can be followed.
+For local development inside this repository, `pubspec_overrides.yaml`
+resolves the Dart package from `../sumcoinlib`. The example app references
+this local Flutter plugin, so no unpublished hosted package is required.
 
-Android, iOS, Linux, macOS, web, and Windows are supported. If you are using the
-package for Android, iOS, Linux, macOS or web, the library is ready to use. For
-Windows, run `dart run sumcoinlib:build_windows` to build the library. See
-[sumcoinlib's documentation](https://pub.dev/packages/sumcoinlib) for more detailed
-instructions on and options for building the native library.
+```dart
+import 'package:flutter/widgets.dart';
+import 'package:sumcoinlib_flutter/sumcoinlib_flutter.dart';
+
+class SumcoinScreen extends StatelessWidget {
+  const SumcoinScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) => SumCoinlibLoader(
+    loadChild: const Center(child: Text('Loading Sumcoin')),
+    errorBuilder: (context, error) => Center(child: Text('$error')),
+    builder: (context) => const Center(child: Text('Sumcoin is ready')),
+  );
+}
+```
+
+`SumCoinlibLoader` ensures the secp256k1 backend is ready, particularly for web.
+Android, iOS, macOS, Linux, Windows, and web builds use their respective Flutter
+and native toolchains. Some platforms require locally built `secp256k1`; see
+[`sumcoinlib/README.md`](../sumcoinlib/README.md) and `src/CMakeLists.txt`.
+
+Run `flutter pub get` and `flutter analyze` here, then repeat in `example/`.
+Do not treat a successful Dart analysis as validation of every native target.

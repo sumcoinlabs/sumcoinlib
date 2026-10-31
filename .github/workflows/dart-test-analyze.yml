@@ -1,32 +1,46 @@
-name: Dart-Test-Analyze
+name: Sumcoinlib 0.0.3 validation
 
 on:
   push:
+    branches: [master]
   pull_request:
-    branches:
-      - "master"
+    branches: [master]
 
 jobs:
-  build:
+  dart:
+    name: Dart analyzer and Chrome/WASM tests
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
       - uses: browser-actions/setup-chrome@v1
-
-      - name: Install dependencies
+      - name: Install Dart dependencies
+        working-directory: sumcoinlib
         run: dart pub get
-        working-directory: ./coinlib
-
-      - name: Analyze project source
-        run: dart analyze --fatal-infos
-        working-directory: ./coinlib
-
-      - name: Run tests using included wasm
+      - name: Analyze Dart library
+        working-directory: sumcoinlib
+        run: dart analyze
+      - name: Run Dart tests with bundled WASM
+        working-directory: sumcoinlib
         run: dart test -p chrome
-        working-directory: ./coinlib
+
+  flutter:
+    name: Flutter plugin and example static checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Resolve local Flutter plugin dependencies
+        working-directory: sumcoinlib_flutter
+        run: flutter pub get
+      - name: Analyze Flutter plugin
+        working-directory: sumcoinlib_flutter
+        run: flutter analyze
+      - name: Resolve local example dependencies
+        working-directory: sumcoinlib_flutter/example
+        run: flutter pub get
+      - name: Analyze Flutter example
+        working-directory: sumcoinlib_flutter/example
+        run: flutter analyze

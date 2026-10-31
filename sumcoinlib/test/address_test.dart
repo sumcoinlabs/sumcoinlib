@@ -81,6 +81,8 @@ void expectValidAddress<T extends Address>(
 
 }
 
+// Base58 fixtures have been independently checksum-reencoded for Sumcoin:
+// P2PKH = 63 (0x3f), P2SH = 125 (0x7d). Hashes are unchanged.
 void main() {
 
   group("Address", () {
@@ -96,7 +98,7 @@ void main() {
     test("valid P2PKH addresses", () {
 
       expectValidAddress(
-        "P8bB9yPr3vVByqfmM5KXftyGckAtAdu6f8",
+        "SMJ12qn9jNCCXJnTYRz5Yu9ZenERqvYwfg",
         Network.mainnet,
         P2PKHAddress.fromHash(
           hexToBytes("0000000000000000000000000000000000000000"),
@@ -105,7 +107,7 @@ void main() {
       );
 
       expectValidAddress(
-        "PGkLtYrKeMDbBCaFy4yMRhN9ZTjJp2y8Pb",
+        "SVTAmREdKnvbifgxARduJhYSbVnrSbcmtK",
         Network.mainnet,
         P2PKHAddress.fromPublicKey(
           pubkey, version: Network.mainnet.p2pkhPrefix,
@@ -117,7 +119,7 @@ void main() {
     test("valid P2SH addresses", () {
 
       expectValidAddress(
-        "pUtBBpAznHgPW9TDtWJcDo7qGXQJqnf1W9",
+        "shb14gZJTjPQ3cZv5ryA6oJ8JZTrWfCtyV",
         Network.mainnet,
         P2SHAddress.fromHash(
           hexToBytes("ffffffffffffffffffffffffffffffffffffffff"),
@@ -126,7 +128,7 @@ void main() {
       );
 
       expectValidAddress(
-        "pL5vkwAVx6Qo1AVm7dzW5XKxP4meAjZQS1",
+        "sYnkdoYodY7oYdcTJzf3xXWFR6qBo4YPHY",
         Network.mainnet,
         P2SHAddress.fromRedeemScript(
           Script.fromAsm("0"),
@@ -139,7 +141,7 @@ void main() {
     test("valid P2WPKH addresses", () {
 
       expectValidAddress(
-        "pc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqmtd2rq",
+        "sum1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq6f0da5",
         Network.mainnet,
         P2WPKHAddress.fromHash(
           hexToBytes("0000000000000000000000000000000000000000"),
@@ -148,7 +150,7 @@ void main() {
       );
 
       expectValidAddress(
-        "pc1qt97wqg464zrhnx23upykca5annqvwkwuvqmpk5",
+        "sum1qt97wqg464zrhnx23upykca5annqvwkwudzexgq",
         Network.mainnet,
         P2WPKHAddress.fromPublicKey(
           pubkey, hrp: Network.mainnet.bech32Hrp,
@@ -160,7 +162,7 @@ void main() {
     test("valid P2WSH addresses", () {
 
       expectValidAddress(
-        "pc1qlllllllllllllllllllllllllllllllllllllllllllllllllllsm5knxw",
+        "sum1qlllllllllllllllllllllllllllllllllllllllllllllllllllspn5tg4",
         Network.mainnet,
         P2WSHAddress.fromHash(
           hexToBytes(
@@ -171,7 +173,7 @@ void main() {
       );
 
       expectValidAddress(
-        "pc1qdc6qh88lkdaf3899gnntk7q293ufq8flkvmnsa59zx3sv9a05qwsgzh235",
+        "sum1qdc6qh88lkdaf3899gnntk7q293ufq8flkvmnsa59zx3sv9a05qwsj94jl0",
         Network.mainnet,
         P2WSHAddress.fromWitnessScript(
           Script.fromAsm("0"),
@@ -184,7 +186,7 @@ void main() {
     test("valid P2TR addresses", () {
 
       expectValidAddress(
-        "pc1punvppl2stp38f7kwv2u2spltjuvuaayuqsthe34hd2dyy5w4g58qj5f0v2",
+        "sum1punvppl2stp38f7kwv2u2spltjuvuaayuqsthe34hd2dyy5w4g58qgnthz3",
         Network.mainnet,
         P2TRAddress.fromTweakedKeyX(
           hexToBytes(
@@ -195,7 +197,7 @@ void main() {
       );
 
       expectValidAddress(
-        "pc1pz37fc4cn9ah8anwm4xqqhvxygjf9rjf2resrw8h8w4tmvcs0863s0hvxry",
+        "sum1pz37fc4cn9ah8anwm4xqqhvxygjf9rjf2resrw8h8w4tmvcs0863s4sw7dl",
         Network.mainnet,
         P2TRAddress.fromTweakedKey(
           ECPublicKey.fromXOnlyHex(
@@ -206,7 +208,7 @@ void main() {
       );
 
       expectValidAddress(
-        "pc1p2wsldez5mud2yam29q22wgfh9439spgduvct83k3pm50fcxa5dpsxcz8x2",
+        "sum1p2wsldez5mud2yam29q22wgfh9439spgduvct83k3pm50fcxa5dpsulqlg3",
         Network.mainnet,
         P2TRAddress.fromTaproot(
           taprootVectors[0].object,
@@ -220,7 +222,7 @@ void main() {
 
       // 40 program bytes
       expectValidAddress(
-        "pc1sqqqsyqcyq5rqwzqfpg9scrgwpugpzysnzs23v9ccrydpk8qarc0jqgfzyvjz2f38pj2w3g",
+        "sum1sqqqsyqcyq5rqwzqfpg9scrgwpugpzysnzs23v9ccrydpk8qarc0jqgfzyvjz2f38pre8y5",
         Network.mainnet,
         UnknownWitnessAddress.fromHex(
           "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324252627",
@@ -231,7 +233,7 @@ void main() {
 
       // 2 program bytes
       expectValidAddress(
-        "pc1sqqqsfrujuz",
+        "sum1sqqqs7f926y",
         Network.mainnet,
         UnknownWitnessAddress.fromHex(
           "0001",
@@ -250,25 +252,25 @@ void main() {
         // Too-short
         "61pApofd7QTRzWAb5UebizEXJ6C1cCzLU",
         "TTazDDREDxxh1mPyGySut6H98h4UKPG6",
-        "pc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq3nu382",
-        "pc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq2zhzfj",
-        "pc1pqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq2trl7f",
+        "sum1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdkpajs",
+        "sum1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq7dpjtm",
+        "sum1pqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq7y40uq",
         // Too-long
         "9tT9KH26AxgN8j9uTpKdwUkK6LFcSKp4FpF",
-        "pc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqquk6wwa",
-        "pc1pqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqgk5ml5",
+        "sum1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqry0hd7",
+        "sum1pqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqhypzuh",
         // Segwit version 17
-        "pc13qqqsyqcyq5rqwzqfpg9scrgwpugpzysnzs23v9ccrydpk8qarc0sxaytzs",
+        "sum13qqqsyqcyq5rqwzqfpg9scrgwpugpzysnzs23v9ccrydpk8qarc0su6xnvt",
         // Too long unknown segwit
-        "pc1sqqqsyqcyq5rqwzqfpg9scrgwpugpzysnzs23v9ccrydpk8qarc0jqgfzyvjz2f389qyd22c5",
+        "sum1sqqqsyqcyq5rqwzqfpg9scrgwpugpzysnzs23v9ccrydpk8qarc0jqgfzyvjz2f389qlnrms4",
         // Too short unknown segwit
-        "pc1sqqwczah4",
+        "sum1sqqdtltzy",
         // Bech32m for v=0
-        "pc1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqwhaxxz",
+        "sum1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq04lpck",
         // Bech32 for v=1
-        "pc1pqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqs46pwt",
+        "sum1pqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq3hcxsl",
         // Unpadded bits
-        "pc1qqqqsyqcyq5rqwzqfpg9scrgwpugpzysnzs23v9ccrydpk8qarc0pcfzdx",
+        "sum1qqqqsyqcyq5rqwzqfpg9scrgwpugpzysnzs23v9ccrydpk8qarc059n770",
       ]) {
         expect(
           () => Address.fromString(invalid, Network.mainnet),
@@ -288,7 +290,7 @@ void main() {
       );
       expect(
         () => Address.fromString(
-          "pc1qlllllllllllllllllllllllllllllllllllllllllllllllllllsm5knxx",
+          "sum1qlllllllllllllllllllllllllllllllllllllllllllllllllllsm5knxx",
           Network.mainnet,
         ),
         throwsA(isA<InvalidBech32Checksum>()),

@@ -43,6 +43,9 @@ class Transaction with Writable {
     = (maxSize - minOtherSize - minInputSize) ~/ minOutputSize;
 
   final int version;
+  /// Sumcoin Core serializes nTime immediately after nVersion when version < 3.
+  /// For version 3+, this field is absent, not zero.
+  final int? time;
   final List<Input> inputs;
   final List<Output> outputs;
   final int locktime;
@@ -52,6 +55,7 @@ class Transaction with Writable {
   /// [maxSize] (1MB).
   Transaction({
     this.version = currentVersion,
+    this.time,
     required Iterable<Input> inputs,
     required Iterable<Output> outputs,
     this.locktime = 0,
@@ -60,6 +64,13 @@ class Transaction with Writable {
   outputs = List.unmodifiable(outputs)
   {
     checkInt32(version);
+    if (version < 3 && time == null) {
+      throw ArgumentError("Transactions with version < 3 require nTime", "time");
+    }
+    if (version >= 3 && time != null) {
+      throw ArgumentError("Transactions with version >= 3 must omit nTime", "time");
+    }
+    if (time != null) checkUint32(time!);
     checkUint32(locktime);
     if (size > maxSize) throw TransactionTooLarge();
   }
@@ -73,6 +84,9 @@ class Transaction with Writable {
   static Transaction? _tryRead(BytesReader reader, bool witness) {
 
     final version = reader.readInt32();
+    // Matches CTransaction::UnserializeTransaction in Sumcoin Core.
+    // Do NOT interpret this 4-byte timestamp as the vin count.
+    final time = version < 3 ? reader.readUInt32() : null;
 
     if (witness) {
       // Check for witness data
@@ -101,6 +115,7 @@ class Transaction with Writable {
 
     return Transaction(
       version: version,
+      time: time,
       inputs: inputs,
       outputs: outputs,
       locktime: locktime,
@@ -160,6 +175,7 @@ class Transaction with Writable {
   void write(Writer writer) {
 
     writer.writeInt32(version);
+    if (version < 3) writer.writeUInt32(time!);
 
     if (isWitness) {
       writer.writeUInt8(0); // Marker
@@ -270,6 +286,7 @@ class Transaction with Writable {
 
     return Transaction(
       version: version,
+      time: time,
       inputs: newInputs,
       outputs: outputs,
       locktime: locktime,
@@ -309,6 +326,7 @@ class Transaction with Writable {
 
     return Transaction(
       version: version,
+      time: time,
       inputs: [...filtered.take(n), input, ...filtered.sublist(n+1)],
       outputs: outputs,
       locktime: locktime,
@@ -320,6 +338,7 @@ class Transaction with Writable {
   /// list.
   Transaction addInput(Input input) => Transaction(
     version: version,
+    time: time,
     inputs: [
       // Only keep ANYONECANPAY signatures when adding a new input
       ...inputs.map(
@@ -352,6 +371,7 @@ class Transaction with Writable {
 
     return Transaction(
       version: version,
+      time: time,
       inputs: modifiedInputs,
       outputs: [...outputs, output],
       locktime: locktime,
@@ -366,6 +386,7 @@ class Transaction with Writable {
   Transaction get legacy => isWitness
     ? _legacyCache ??= Transaction(
       version: version,
+      time: time,
       inputs: inputs.map(
         // Raw inputs remove all witness data and are serialized as legacy
         // inputs. Don't waste creating a new object for non-witness inputs.
